@@ -35,3 +35,7 @@ RECOMMENDED:
 
 YOU ARE SOLELY RESPONSIBLE for ensuring you have proper authorization for all testing activities.
 
+INSTALL
+# ONE COMMAND - Clone and run immediately
+git clone https://github.com/dootmas/CHIMERA.git && cd CHIMERA && python3 CHIMERA.py
+
