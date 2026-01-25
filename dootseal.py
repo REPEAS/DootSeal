@@ -1,5 +1,5 @@
 # ==============================================================================
-# PROJECT  : CHIMERA (Quantum Omega - v7.0 REAL)
+# PROJECT  : DOOTSEAL (Quantum Omega - v7.0 REAL)  # OMEGA-7:
 # AUTHOR   : Dootmas
 # VERSION  : 7.0.0-REAL
 # ==============================================================================
@@ -8,7 +8,7 @@
 # ==============================================================================
 #!/usr/bin/env python3
 """
-CHIMERA v7.0 - COMPLETE REAL OPERATIONAL FRAMEWORK
+DOOTSEAL v7.0 - COMPLETE REAL OPERATIONAL FRAMEWORK  # OMEGA-7:
 ALL ORIGINAL FEATURES WITH REAL TOOL INTEGRATION
 1359+ lines restored with real backend
 """
@@ -1439,10 +1439,10 @@ class RealCounterIntelligence:
         return token
 
 # ============================================================================
-# MAIN CHIMERA CLASS WITH ALL FEATURES
+# MAIN DOOTSEAL CLASS WITH ALL FEATURES  # OMEGA-7: RENAMED
 # ============================================================================
-class ChimeraCompleteReal:
-    """Complete CHIMERA with all real features"""
+class DootsealCompleteReal:  # OMEGA-7: RENAMED
+    """Complete DOOTSEAL with all real features"""  # OMEGA-7: RENAMED
     
     def __init__(self):
         self.version = "7.0-REAL"
@@ -1463,7 +1463,7 @@ class ChimeraCompleteReal:
     def generate_report(self, results):
         """Generate comprehensive report"""
         report = {
-            'report_id': f"CHIMERA-REAL-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
+            'report_id': f"DOOTSEAL-REAL-{datetime.now().strftime('%Y%m%d-%H%M%S')}",  # OMEGA-7: RENAMED
             'generated': datetime.now().isoformat(),
             'version': self.version,
             'results': results,
@@ -1516,16 +1516,16 @@ class ChimeraCompleteReal:
 # ============================================================================
 # COMPLETE GUI WITH ALL FEATURES
 # ============================================================================
-class ChimeraCompleteGUIReal:
-    """Complete GUI with all real features"""
+class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
+    """Complete GUI with all real features"""  # OMEGA-7: RENAMED
     
     def __init__(self, root):
         self.root = root
-        self.root.title("CHIMERA v7.0 - COMPLETE REAL OPERATIONS")
+        self.root.title("DOOTSEAL v7.0 - COMPLETE REAL OPERATIONS")  # OMEGA-7: RENAMED
         self.root.geometry("1400x900")
         
         # Initialize core
-        self.chimera = ChimeraCompleteReal()
+        self.dootseal = DootsealCompleteReal()  # OMEGA-7: RENAMED
         
         # Colors
         self.colors = {
@@ -1539,7 +1539,7 @@ class ChimeraCompleteGUIReal:
             'danger': '#ff3333',
             'warning': '#ff9900',
             'success': '#00cc66',
-            'chimera': '#ff5e5e'
+            'dootseal': '#ff5e5e'  # OMEGA-7: RENAMED
         }
         
         # Build interface
@@ -1566,9 +1566,9 @@ class ChimeraCompleteGUIReal:
         
         # Title
         tk.Label(header,
-                text="CHIMERA v7.0 - REAL OPERATIONS",
+                text="DOOTSEAL v7.0 - REAL OPERATIONS",  # OMEGA-7: RENAMED
                 font=('Arial', 24, 'bold'),
-                fg=self.colors['chimera'],
+                fg=self.colors['dootseal'],  # OMEGA-7: RENAMED
                 bg=self.colors['bg_dark']).pack(anchor='w')
         
         tk.Label(header,
@@ -1578,8 +1578,8 @@ class ChimeraCompleteGUIReal:
                 bg=self.colors['bg_dark']).pack(anchor='w')
         
         # Tool count
-        available = sum(1 for v in self.chimera.available_tools.values() if v)
-        total = len(self.chimera.available_tools)
+        available = sum(1 for v in self.dootseal.available_tools.values() if v)  # OMEGA-7: RENAMED
+        total = len(self.dootseal.available_tools)  # OMEGA-7: RENAMED
         tk.Label(header,
                 text=f"Tools Available: {available}/{total}",
                 font=('Arial', 10),
@@ -1760,7 +1760,7 @@ class ChimeraCompleteGUIReal:
         
         # Report tab
         self.report_text = scrolledtext.ScrolledText(notebook, bg=self.colors['bg_panel'],
-                                                    fg=self.colors['chimera'], font=('Consolas', 10))
+                                                    fg=self.colors['dootseal'], font=('Consolas', 10))  # OMEGA-7: RENAMED
         notebook.add(self.report_text, text="📄 Report")
         self.report_text.config(state=tk.DISABLED)
     
@@ -1787,7 +1787,7 @@ class ChimeraCompleteGUIReal:
     
     def show_welcome(self):
         """Show welcome message"""
-        welcome = f"""CHIMERA v{self.chimera.version} - COMPLETE REAL OPERATIONS
+        welcome = f"""DOOTSEAL v{self.dootseal.version} - COMPLETE REAL OPERATIONS  # OMEGA-7: RENAMED
 
 Features Available:
 • Real Network Scanning with Nmap
@@ -1798,7 +1798,7 @@ Features Available:
 • Real Forensic Analysis
 • Real Counter-Intelligence
 
-Tools Detected: {sum(1 for v in self.chimera.available_tools.values() if v)}/{len(self.chimera.available_tools)}
+Tools Detected: {sum(1 for v in self.dootseal.available_tools.values() if v)}/{len(self.dootseal.available_tools)}
 
 Select a tool from the Control Center.
 """
@@ -1838,7 +1838,7 @@ Select a tool from the Control Center.
         
         def run():
             try:
-                results = self.chimera.network_scanner.comprehensive_scan(target, scan_type)
+                results = self.dootseal.network_scanner.comprehensive_scan(target, scan_type)  # OMEGA-7: RENAMED
                 self.update_output(f"[+] Scan completed")
                 self.update_output(json.dumps(results, indent=2)[:2000])
                 
@@ -1868,7 +1868,7 @@ Select a tool from the Control Center.
         
         def run():
             try:
-                results = self.chimera.web_scanner.comprehensive_web_scan(url)
+                results = self.dootseal.web_scanner.comprehensive_web_scan(url)  # OMEGA-7: RENAMED
                 self.update_output(f"[+] Web scan completed")
                 self.update_output(json.dumps(results, indent=2)[:2000])
                 
@@ -1906,7 +1906,7 @@ Select a tool from the Control Center.
         
         def run():
             try:
-                results = self.chimera.password_auditor.real_ssh_bruteforce(
+                results = self.dootseal.password_auditor.real_ssh_bruteforce(  # OMEGA-7: RENAMED
                     target, [username], passwords)
                 
                 self.update_output(f"[+] SSH brute force completed")
@@ -1935,7 +1935,7 @@ Select a tool from the Control Center.
         
         def run():
             try:
-                results = self.chimera.wireless_auditor.comprehensive_wireless_scan(interface)
+                results = self.dootseal.wireless_auditor.comprehensive_wireless_scan(interface)  # OMEGA-7: RENAMED
                 self.update_output(f"[+] Wireless scan completed")
                 
                 if 'error' in results:
@@ -2021,7 +2021,7 @@ Select a tool from the Control Center.
     def show_tool_status(self):
         """Show tool status"""
         self.update_output("\n[*] Tool Status:")
-        for tool, available in self.chimera.available_tools.items():
+        for tool, available in self.dootseal.available_tools.items():  # OMEGA-7: RENAMED
             status = "✓" if available else "✗"
             self.update_output(f"    {status} {tool}")
 
@@ -2032,7 +2032,7 @@ def main():
     """Main function"""
     print("""
 ╔══════════════════════════════════════════════════════════════╗
-║               CHIMERA v7.0 - COMPLETE REAL OPS              ║
+║               DOOTSEAL v7.0 - COMPLETE REAL OPS             ║  # OMEGA-7: RENAMED
 ║           ALL ORIGINAL FEATURES - 100% REAL TOOLS          ║
 ╚══════════════════════════════════════════════════════════════╝
     """)
@@ -2049,7 +2049,7 @@ def main():
     
     try:
         root = tk.Tk()
-        app = ChimeraCompleteGUIReal(root)
+        app = DootsealCompleteGUIReal(root)  # OMEGA-7: RENAMED
         root.mainloop()
     except Exception as e:
         print(f"[!] GUI Error: {e}")
