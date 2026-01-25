@@ -33,9 +33,16 @@ RECOMMENDED:
 
     Required permissions before scanning systems
 
+
+   
+
 YOU ARE SOLELY RESPONSIBLE for ensuring you have proper authorization for all testing activities.
 
 INSTALL
 # ONE COMMAND - Clone and run immediately
 git clone https://github.com/dootmas/CHIMERA.git && cd CHIMERA && python3 CHIMERA.py
 
+ If You Get the .deb file 
+cd [directory of download] 
+sudo apt install gdebi 
+sudo gdebi CHIMERA.deb
