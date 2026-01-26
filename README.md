@@ -25,7 +25,7 @@ Method 1: Git Clone & Run
 bash
 
 # Clone the repository
-git clone https://github.com/dootmas/dootseal.git
+git clone https://github.com/REPEAS/dootseal.git
 cd dootseal
 
 # Install dependencies
@@ -35,17 +35,16 @@ pip install -r requirements.txt
 python3 dootseal.py
 
 Method 2: .deb Package (For Debian/Ubuntu/Kali)
-bash
 
 # Download the latest .deb release
-wget https://github.com/dootmas/dootseal/releases/latest/download/dootseal_7.0_all.deb
+wget https://github.com/REPEAS/dootseal/releases/latest/download/dootseal.deb
 
 # Install with gdebi (recommended - handles dependencies)
 sudo apt install gdebi
-sudo gdebi dootseal_7.0_all.deb
+sudo gdebi dootseal.deb
 
 # OR install with dpkg
-sudo dpkg -i dootseal_7.0_all.deb
+sudo dpkg -i dootseal.deb
 sudo apt install -f  # Fix missing dependencies
 
 Thanks for installing If You Did :3   -dootmas
