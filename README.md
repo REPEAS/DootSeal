@@ -2,11 +2,6 @@ DOOTSEAL v7.0 🔐
 
 Complete Penetration Testing Suite by Dootmas
 
-https://img.shields.io/badge/DOOTSEAL-v7.0-red
-https://img.shields.io/badge/Python-3.6%252B-blue
-https://img.shields.io/badge/License-Dootmas%2520Shield-green
-https://img.shields.io/badge/Platform-Linux%2520%257C%2520Kali-lightgrey
-
     [!WARNING]
     AUTHORIZED USE ONLY - Don't be a "Bad Boy". :3
 
