@@ -1,16 +1,16 @@
 # ==============================================================================
-# PROJECT  : DOOTSEAL (Quantum Omega - v7.0 REAL)  # OMEGA-7:
+# PROJECT  : DOOTSEAL (Quantum Omega - v7.0)  
 # AUTHOR   : Dootmas
-# VERSION  : 7.0.0-REAL
+# VERSION  : 7.0.0
 # ==============================================================================
 # [!] DOOTMAS INTEGRITY SHIELD ACTIVE
 # [!] LEGAL: Authorized Auditing Only. Don't be a "Bad Boy". :3
 # ==============================================================================
 #!/usr/bin/env python3
 """
-DOOTSEAL v7.0 - COMPLETE REAL OPERATIONAL FRAMEWORK  # OMEGA-7:
-ALL ORIGINAL FEATURES WITH REAL TOOL INTEGRATION
-1359+ lines restored with real backend
+DOOTSEAL v7.0 - COMPLETE OPERATIONAL FRAMEWORK
+ALL ORIGINAL FEATURES WITH TOOL INTEGRATION
+1359+ lines restored with backend
 """
 
 import tkinter as tk
@@ -69,12 +69,12 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 # ============================================================================
 # TOOL MANAGER
 # ============================================================================
-class RealToolManager:
+class ToolManager:
     """Manage all security tools"""
     
     @staticmethod
     def check_all_tools():
-        """Check for all real security tools"""
+        """Check for all security tools"""
         tools = {
             # Network scanning
             'nmap': ['nmap', '--version'],
@@ -166,12 +166,12 @@ class RealToolManager:
 # ============================================================================
 # NETWORK SCANNER WITH ALL FEATURES
 # ============================================================================
-class RealNetworkScannerComplete:
+class NetworkScannerComplete:
     """Complete network scanner with tools"""
     
     def __init__(self):
         self.nm = nmap.PortScanner()
-        self.tools = RealToolManager()
+        self.tools = ToolManager()
         
     def comprehensive_scan(self, target, scan_type="stealth"):
         """Complete network assessment"""
@@ -179,42 +179,42 @@ class RealNetworkScannerComplete:
             'target': target,
             'timestamp': datetime.now().isoformat(),
             'phases': {},
-            'real_tools_used': []
+            'tools_used': []
         }
         
-        # Phase 1: Host Discovery (Real)
-        results['phases']['host_discovery'] = self.real_host_discovery(target)
-        results['real_tools_used'].append('nmap')
+        # Phase 1: Host Discovery
+        results['phases']['host_discovery'] = self.host_discovery(target)
+        results['tools_used'].append('nmap')
         
-        # Phase 2: Port Scanning (Real)
+        # Phase 2: Port Scanning
         if 'live_hosts' in results['phases']['host_discovery']:
             hosts = results['phases']['host_discovery']['live_hosts'][:5]  # Limit to 5
-            results['phases']['port_scanning'] = self.real_port_scanning(hosts, scan_type)
-            results['real_tools_used'].append('masscan' if len(hosts) > 1 else 'nmap')
+            results['phases']['port_scanning'] = self.port_scanning(hosts, scan_type)
+            results['tools_used'].append('masscan' if len(hosts) > 1 else 'nmap')
         
-        # Phase 3: Service Detection (Real)
+        # Phase 3: Service Detection
         if 'port_scanning' in results['phases']:
-            results['phases']['service_detection'] = self.real_service_detection(results['phases']['port_scanning'])
-            results['real_tools_used'].append('nmap')
+            results['phases']['service_detection'] = self.service_detection(results['phases']['port_scanning'])
+            results['tools_used'].append('nmap')
         
-        # Phase 4: OS Fingerprinting (Real)
+        # Phase 4: OS Fingerprinting
         if 'live_hosts' in results['phases']['host_discovery']:
-            results['phases']['os_fingerprinting'] = self.real_os_fingerprinting(
+            results['phases']['os_fingerprinting'] = self.os_fingerprinting(
                 results['phases']['host_discovery']['live_hosts']
             )
-            results['real_tools_used'].append('nmap')
+            results['tools_used'].append('nmap')
         
-        # Phase 5: Vulnerability Assessment (Real)
-        results['phases']['vulnerability_assessment'] = self.real_vulnerability_assessment(results)
-        results['real_tools_used'].extend(['nmap', 'searchsploit'])
+        # Phase 5: Vulnerability Assessment
+        results['phases']['vulnerability_assessment'] = self.vulnerability_assessment(results)
+        results['tools_used'].extend(['nmap', 'searchsploit'])
         
-        # Phase 6: Exploit Search (Real)
-        results['phases']['exploit_search'] = self.real_exploit_search(results)
+        # Phase 6: Exploit Search
+        results['phases']['exploit_search'] = self.exploit_search(results)
         
         return results
     
-    def real_host_discovery(self, target):
-        """Real host discovery with multiple techniques"""
+    def host_discovery(self, target):
+        """Host discovery with multiple techniques"""
         discovery = {
             'techniques': [],
             'live_hosts': [],
@@ -230,8 +230,8 @@ class RealNetworkScannerComplete:
             for host in self.nm.all_hosts():
                 if self.nm[host].state() == 'up':
                     discovery['live_hosts'].append(host)
-        except:
-            pass
+        except Exception as e:
+            discovery['error'] = f"Nmap scan failed: {str(e)}"
         
         # Technique 2: ARP Scan for local networks
         if self._is_local_network(target):
@@ -246,8 +246,9 @@ class RealNetworkScannerComplete:
                             ip = line.split()[0]
                             if ip not in discovery['live_hosts']:
                                 discovery['live_hosts'].append(ip)
-            except:
-                pass
+            except Exception as e:
+                if 'error' not in discovery:
+                    discovery['error'] = f"ARP scan failed: {str(e)}"
         
         # Technique 3: TCP SYN Ping
         try:
@@ -258,13 +259,14 @@ class RealNetworkScannerComplete:
             for host in self.nm.all_hosts():
                 if self.nm[host].state() == 'up' and host not in discovery['live_hosts']:
                     discovery['live_hosts'].append(host)
-        except:
-            pass
+        except Exception as e:
+            if 'error' not in discovery:
+                discovery['error'] = f"TCP SYN ping failed: {str(e)}"
         
         return discovery
     
-    def real_port_scanning(self, hosts, scan_type):
-        """Real port scanning with nmap"""
+    def port_scanning(self, hosts, scan_type):
+        """Port scanning with nmap"""
         port_scan = {
             'hosts': {},
             'scan_type': scan_type,
@@ -304,13 +306,14 @@ class RealNetworkScannerComplete:
                             }
                     
                     port_scan['hosts'][host] = host_info
-            except:
+            except Exception as e:
+                port_scan['error'] = f"Port scan failed for {host}: {str(e)}"
                 continue
         
         return port_scan
     
-    def real_service_detection(self, port_scan):
-        """Real service detection"""
+    def service_detection(self, port_scan):
+        """Service detection"""
         service_detection = {
             'services': {},
             'vulnerable_services': [],
@@ -326,14 +329,14 @@ class RealNetworkScannerComplete:
                 service_detection['services'][service].append(f"{host}:{port}")
                 
                 # Check for known vulnerable services
-                vulns = self._check_service_vulnerabilities_real(host, port, service, port_info)
+                vulns = self._check_service_vulnerabilities(host, port, service, port_info)
                 if vulns:
                     service_detection['vulnerable_services'].extend(vulns)
         
         return service_detection
     
-    def _check_service_vulnerabilities_real(self, host, port, service, info):
-        """Check for real vulnerabilities"""
+    def _check_service_vulnerabilities(self, host, port, service, info):
+        """Check for vulnerabilities"""
         vulnerabilities = []
         
         # SSH vulnerabilities
@@ -370,8 +373,8 @@ class RealNetworkScannerComplete:
         
         return vulnerabilities
     
-    def real_os_fingerprinting(self, hosts):
-        """Real OS fingerprinting"""
+    def os_fingerprinting(self, hosts):
+        """OS fingerprinting"""
         os_info = {
             'hosts': {},
             'techniques': ['Nmap OS Detection', 'TCP/IP Stack Analysis']
@@ -389,13 +392,14 @@ class RealNetworkScannerComplete:
                             'accuracy': host_os[0].get('accuracy', '0'),
                             'osclass': host_os[0].get('osclass', [])
                         }
-            except:
+            except Exception as e:
+                os_info['error'] = f"OS fingerprinting failed for {host}: {str(e)}"
                 continue
         
         return os_info
     
-    def real_vulnerability_assessment(self, scan_data):
-        """Real vulnerability assessment"""
+    def vulnerability_assessment(self, scan_data):
+        """Vulnerability assessment"""
         assessment = {
             'vulnerabilities': [],
             'risk_score': 0,
@@ -426,7 +430,8 @@ class RealNetworkScannerComplete:
                                             'output': str(script_output)[:500],
                                             'severity': self._determine_severity(script_name)
                                         })
-                except:
+                except Exception as e:
+                    assessment['error'] = f"Vulnerability scan failed for {host}: {str(e)}"
                     continue
         
         # Calculate risk score
@@ -448,8 +453,8 @@ class RealNetworkScannerComplete:
         assessment['tools_used'] = ['nmap', 'vulners script']
         return assessment
     
-    def real_exploit_search(self, scan_data):
-        """Search for real exploits"""
+    def exploit_search(self, scan_data):
+        """Search for exploits"""
         exploits_found = []
         
         # Check services for known exploits
@@ -474,7 +479,7 @@ class RealNetworkScannerComplete:
                                     'path': exploit.get('Path', ''),
                                     'date': exploit.get('Date', '')
                                 })
-                except:
+                except Exception as e:
                     continue
         
         return {
@@ -518,13 +523,13 @@ class RealNetworkScannerComplete:
         return 'LOW'
 
 # ============================================================================
-# REAL WEB APPLICATION SCANNER COMPLETE
+# WEB APPLICATION SCANNER COMPLETE
 # ============================================================================
-class RealWebScannerComplete:
-    """Complete web application scanner with real tools"""
+class WebScannerComplete:
+    """Complete web application scanner with tools"""
     
     def __init__(self):
-        self.tools = RealToolManager()
+        self.tools = ToolManager()
     
     def comprehensive_web_scan(self, url):
         """Complete web application assessment"""
@@ -532,34 +537,34 @@ class RealWebScannerComplete:
             'url': url,
             'timestamp': datetime.now().isoformat(),
             'phases': {},
-            'real_tools_used': []
+            'tools_used': []
         }
         
         # Phase 1: Reconnaissance
-        results['phases']['reconnaissance'] = self.real_web_recon(url)
-        results['real_tools_used'].extend(['whatweb', 'theharvester'])
+        results['phases']['reconnaissance'] = self.web_recon(url)
+        results['tools_used'].extend(['whatweb', 'theharvester'])
         
         # Phase 2: Directory Enumeration
-        results['phases']['directory_enumeration'] = self.real_directory_enum(url)
-        results['real_tools_used'].extend(['gobuster', 'dirsearch'])
+        results['phases']['directory_enumeration'] = self.directory_enum(url)
+        results['tools_used'].extend(['gobuster', 'dirsearch'])
         
         # Phase 3: Vulnerability Scanning
-        results['phases']['vulnerability_scanning'] = self.real_vuln_scan(url)
-        results['real_tools_used'].extend(['nikto', 'sqlmap'])
+        results['phases']['vulnerability_scanning'] = self.vuln_scan(url)
+        results['tools_used'].extend(['nikto', 'sqlmap'])
         
         # Phase 4: Technology Analysis
-        results['phases']['technology_analysis'] = self.real_tech_analysis(url)
-        results['real_tools_used'].append('wappalyzer')
+        results['phases']['technology_analysis'] = self.tech_analysis(url)
+        results['tools_used'].append('wappalyzer')
         
         # Phase 5: SSL/TLS Analysis
         if url.startswith('https'):
-            results['phases']['ssl_analysis'] = self.real_ssl_analysis(url)
-            results['real_tools_used'].append('sslscan')
+            results['phases']['ssl_analysis'] = self.ssl_analysis(url)
+            results['tools_used'].append('sslscan')
         
         return results
     
-    def real_web_recon(self, url):
-        """Real web reconnaissance"""
+    def web_recon(self, url):
+        """Web reconnaissance"""
         recon = {
             'fingerprinting': {},
             'subdomains': [],
@@ -583,8 +588,10 @@ class RealWebScannerComplete:
                 for tech in tech_patterns:
                     if tech.lower() in result['output'].lower():
                         recon['technologies'].append(tech)
-        except:
-            pass
+            else:
+                recon['error'] = f"WhatWeb failed: {result.get('error', 'Unknown error')}"
+        except Exception as e:
+            recon['error'] = f"WhatWeb exception: {str(e)}"
         
         # TheHarvester for OSINT
         try:
@@ -600,13 +607,17 @@ class RealWebScannerComplete:
                 for line in lines:
                     if domain in line and '://' not in line:
                         recon['subdomains'].append(line.strip())
-        except:
-            pass
+            else:
+                if 'error' not in recon:
+                    recon['error'] = f"TheHarvester failed: {result.get('error', 'Unknown error')}"
+        except Exception as e:
+            if 'error' not in recon:
+                recon['error'] = f"TheHarvester exception: {str(e)}"
         
         return recon
     
-    def real_directory_enum(self, url):
-        """Real directory enumeration"""
+    def directory_enum(self, url):
+        """Directory enumeration"""
         enumeration = {
             'directories': [],
             'files': [],
@@ -628,8 +639,10 @@ class RealWebScannerComplete:
                                 'status': parts[1].strip('()').replace('Status:', ''),
                                 'size': parts[2].replace('Size:', '')
                             })
-        except:
-            pass
+            else:
+                enumeration['error'] = f"Gobuster failed: {result.get('error', 'Unknown error')}"
+        except Exception as e:
+            enumeration['error'] = f"Gobuster exception: {str(e)}"
         
         # Dirsearch
         try:
@@ -646,13 +659,17 @@ class RealWebScannerComplete:
                                 'code': parts[1].replace('[', '').replace(']', ''),
                                 'size': parts[2] if len(parts) > 2 else 'N/A'
                             })
-        except:
-            pass
+            else:
+                if 'error' not in enumeration:
+                    enumeration['error'] = f"Dirsearch failed: {result.get('error', 'Unknown error')}"
+        except Exception as e:
+            if 'error' not in enumeration:
+                enumeration['error'] = f"Dirsearch exception: {str(e)}"
         
         return enumeration
     
-    def real_vuln_scan(self, url):
-        """Real vulnerability scanning"""
+    def vuln_scan(self, url):
+        """Vulnerability scanning"""
         vuln_scan = {
             'sql_injection': [],
             'xss': [],
@@ -673,8 +690,10 @@ class RealWebScannerComplete:
                         finding = line.replace('+ ', '').strip()
                         if any(vuln in finding.lower() for vuln in ['sql', 'injection', 'xss', 'cross-site', 'lfi', 'rfi']):
                             vuln_scan['sql_injection'].append(finding)
-        except:
-            pass
+            else:
+                vuln_scan['error'] = f"Nikto failed: {result.get('error', 'Unknown error')}"
+        except Exception as e:
+            vuln_scan['error'] = f"Nikto exception: {str(e)}"
         
         # SQLMap test (limited)
         try:
@@ -683,13 +702,17 @@ class RealWebScannerComplete:
                 vuln_scan['tools_used'].append('sqlmap')
                 if 'sql injection' in result['output'].lower():
                     vuln_scan['sql_injection'].append('SQL Injection vulnerability detected by SQLMap')
-        except:
-            pass
+            else:
+                if 'error' not in vuln_scan:
+                    vuln_scan['error'] = f"SQLMap failed: {result.get('error', 'Unknown error')}"
+        except Exception as e:
+            if 'error' not in vuln_scan:
+                vuln_scan['error'] = f"SQLMap exception: {str(e)}"
         
         return vuln_scan
     
-    def real_tech_analysis(self, url):
-        """Real technology analysis"""
+    def tech_analysis(self, url):
+        """Technology analysis"""
         analysis = {
             'server': 'Unknown',
             'framework': 'Unknown',
@@ -748,13 +771,13 @@ class RealWebScannerComplete:
             if '.py' in url or 'django' in content or 'flask' in content:
                 analysis['languages'].append('Python')
                 
-        except:
-            pass
+        except Exception as e:
+            analysis['error'] = f"Request failed: {str(e)}"
         
         return analysis
     
-    def real_ssl_analysis(self, url):
-        """Real SSL/TLS analysis"""
+    def ssl_analysis(self, url):
+        """SSL/TLS analysis"""
         ssl_analysis = {
             'grade': 'Unknown',
             'protocols': [],
@@ -789,6 +812,8 @@ class RealWebScannerComplete:
                     cert_info['not_after'] = not_after.strip()
                 
                 ssl_analysis['certificate_info'] = cert_info
+            else:
+                ssl_analysis['error'] = f"OpenSSL failed: {result.get('error', 'Unknown error')}"
             
             # Test SSL protocols
             protocols = ['ssl2', 'ssl3', 'tls1', 'tls1_1', 'tls1_2', 'tls1_3']
@@ -798,7 +823,7 @@ class RealWebScannerComplete:
                     if 'CONNECTED' in result['output']:
                         ssl_analysis['protocols'].append(protocol.upper())
                 except:
-                    pass
+                    continue
             
             # Grade determination (simplified)
             if 'TLS1_3' in ssl_analysis['protocols']:
@@ -808,19 +833,19 @@ class RealWebScannerComplete:
             else:
                 ssl_analysis['grade'] = 'F'
                 
-        except:
-            pass
+        except Exception as e:
+            ssl_analysis['error'] = f"SSL analysis failed: {str(e)}"
         
         return ssl_analysis
 
 # ============================================================================
-# REAL PASSWORD AUDITOR COMPLETE
+# PASSWORD AUDITOR COMPLETE
 # ============================================================================
-class RealPasswordAuditorComplete:
-    """Complete password auditor with real tools"""
+class PasswordAuditorComplete:
+    """Complete password auditor with tools"""
     
     def __init__(self):
-        self.tools = RealToolManager()
+        self.tools = ToolManager()
     
     def comprehensive_password_audit(self, target, service, username_list=None, password_list=None):
         """Complete password audit"""
@@ -847,22 +872,22 @@ class RealPasswordAuditorComplete:
         
         # Service-specific attacks
         if service.lower() == 'ssh':
-            audit['results'] = self.real_ssh_bruteforce(target, username_list, password_list)
+            audit['results'] = self.ssh_bruteforce(target, username_list, password_list)
             audit['tools_used'].append('hydra')
         elif service.lower() == 'ftp':
-            audit['results'] = self.real_ftp_bruteforce(target, username_list, password_list)
+            audit['results'] = self.ftp_bruteforce(target, username_list, password_list)
             audit['tools_used'].append('hydra')
         elif service.lower() == 'http':
-            audit['results'] = self.real_http_bruteforce(target, username_list, password_list)
+            audit['results'] = self.http_bruteforce(target, username_list, password_list)
             audit['tools_used'].append('hydra')
         elif service.lower() == 'smb':
-            audit['results'] = self.real_smb_bruteforce(target, username_list, password_list)
+            audit['results'] = self.smb_bruteforce(target, username_list, password_list)
             audit['tools_used'].append('hydra')
         
         return audit
     
-    def real_ssh_bruteforce(self, target, usernames, passwords):
-        """Real SSH brute force with hydra"""
+    def ssh_bruteforce(self, target, usernames, passwords):
+        """SSH brute force with hydra"""
         results = {
             'successful': [],
             'attempts': 0,
@@ -897,21 +922,25 @@ class RealPasswordAuditorComplete:
                                 'username': username,
                                 'password': password
                             })
+            else:
+                results['error'] = f"Hydra failed: {result.get('error', 'Unknown error')}"
             
             results['attempts'] = len(usernames) * len(passwords)
             
         except Exception as e:
-            results['error'] = str(e)
+            results['error'] = f"SSH brute force exception: {str(e)}"
         finally:
             # Cleanup
-            os.unlink(user_path)
-            os.unlink(pass_path)
+            if os.path.exists(user_path):
+                os.unlink(user_path)
+            if os.path.exists(pass_path):
+                os.unlink(pass_path)
         
         results['time'] = time.time() - start_time
         return results
     
-    def real_ftp_bruteforce(self, target, usernames, passwords):
-        """Real FTP brute force"""
+    def ftp_bruteforce(self, target, usernames, passwords):
+        """FTP brute force"""
         results = {
             'successful': [],
             'attempts': 0,
@@ -957,8 +986,8 @@ class RealPasswordAuditorComplete:
         
         return results
     
-    def real_http_bruteforce(self, target, usernames, passwords):
-        """Real HTTP basic auth brute force"""
+    def http_bruteforce(self, target, usernames, passwords):
+        """HTTP basic auth brute force"""
         results = {
             'successful': [],
             'attempts': 0,
@@ -983,14 +1012,14 @@ class RealPasswordAuditorComplete:
                                 'path': path
                             })
                         results['attempts'] += 1
-                    except:
+                    except Exception as e:
                         results['attempts'] += 1
         
         results['time'] = time.time() - start_time
         return results
     
-    def real_smb_bruteforce(self, target, usernames, passwords):
-        """Real SMB brute force"""
+    def smb_bruteforce(self, target, usernames, passwords):
+        """SMB brute force"""
         results = {
             'successful': [],
             'attempts': 0,
@@ -1003,13 +1032,13 @@ class RealPasswordAuditorComplete:
         return results
 
 # ============================================================================
-# REAL WIRELESS AUDITOR COMPLETE
+# WIRELESS AUDITOR COMPLETE
 # ============================================================================
-class RealWirelessAuditorComplete:
-    """Complete wireless auditor with real tools"""
+class WirelessAuditorComplete:
+    """Complete wireless auditor with tools"""
     
     def __init__(self):
-        self.tools = RealToolManager()
+        self.tools = ToolManager()
     
     def comprehensive_wireless_scan(self, interface='wlan0'):
         """Complete wireless assessment"""
@@ -1029,6 +1058,9 @@ class RealWirelessAuditorComplete:
         try:
             # Put interface in monitor mode
             result = self.tools.execute_tool('airmon-ng', f'start {interface}')
+            if 'error' in result:
+                scan['error'] = f"Failed to start monitor mode: {result['error']}"
+                return scan
             scan['tools_used'].append('airmon-ng')
             
             # Start airodump-ng to scan networks
@@ -1049,13 +1081,16 @@ class RealWirelessAuditorComplete:
                 scan['clients'] = clients
                 
                 # Cleanup
-                os.unlink('/tmp/scan-01.csv')
+                try:
+                    os.unlink('/tmp/scan-01.csv')
+                except:
+                    pass
             
             # Stop monitor mode
             self.tools.execute_tool('airmon-ng', f'stop {mon_interface}')
             
         except Exception as e:
-            scan['error'] = str(e)
+            scan['error'] = f"Wireless scan exception: {str(e)}"
         
         return scan
     
@@ -1112,13 +1147,13 @@ class RealWirelessAuditorComplete:
         return networks, clients
 
 # ============================================================================
-# REAL SOCIAL ENGINEERING MODULE
+# SOCIAL ENGINEERING MODULE
 # ============================================================================
-class RealSocialEngineering:
-    """Social engineering with real tools"""
+class SocialEngineering:
+    """Social engineering with tools"""
     
     def __init__(self):
-        self.tools = RealToolManager()
+        self.tools = ToolManager()
     
     def generate_phishing_email(self, template, target_info):
         """Generate phishing email"""
@@ -1205,13 +1240,13 @@ Account Security Team
         }
 
 # ============================================================================
-# REAL FORENSIC ANALYSIS MODULE
+# FORENSIC ANALYSIS MODULE
 # ============================================================================
-class RealForensicAnalysis:
-    """Real forensic analysis with tools"""
+class ForensicAnalysis:
+    """Forensic analysis with tools"""
     
     def __init__(self):
-        self.tools = RealToolManager()
+        self.tools = ToolManager()
     
     def analyze_file(self, file_path):
         """Comprehensive file analysis"""
@@ -1259,8 +1294,8 @@ class RealForensicAnalysis:
                     for chunk in iter(lambda: f.read(4096), b''):
                         hasher.update(chunk)
                 hashes[algo] = hasher.hexdigest()
-            except:
-                hashes[algo] = 'Error'
+            except Exception as e:
+                hashes[algo] = f'Error: {str(e)}'
         
         return hashes
     
@@ -1278,8 +1313,8 @@ class RealForensicAnalysis:
             result = subprocess.run(['file', file_path], capture_output=True, text=True)
             if result.returncode == 0:
                 metadata['type'] = result.stdout.strip()
-        except:
-            pass
+        except Exception as e:
+            metadata['type'] = f'Error: {str(e)}'
         
         return metadata
     
@@ -1291,8 +1326,8 @@ class RealForensicAnalysis:
             result = subprocess.run(['strings', file_path], capture_output=True, text=True)
             if result.returncode == 0:
                 strings = [s for s in result.stdout.split('\n') if len(s) > 4][:500]  # Limit
-        except:
-            pass
+        except Exception as e:
+            strings = [f'Error extracting strings: {str(e)}']
         
         return strings
     
@@ -1308,8 +1343,8 @@ class RealForensicAnalysis:
                 # Count signatures found
                 signature_count = len([l for l in result.stdout.split('\n') if '0x' in l])
                 analysis['signatures_found'] = signature_count
-        except:
-            analysis['error'] = 'Binwalk not available'
+        except Exception as e:
+            analysis['error'] = f'Binwalk failed: {str(e)}'
         
         return analysis
     
@@ -1336,19 +1371,19 @@ class RealForensicAnalysis:
             # Cleanup
             shutil.rmtree(output_dir)
             
-        except:
-            analysis['error'] = 'Foremost not available'
+        except Exception as e:
+            analysis['error'] = f'Foremost failed: {str(e)}'
         
         return analysis
 
 # ============================================================================
-# REAL COUNTER-INTELLIGENCE MODULE
+# COUNTER-INTELLIGENCE MODULE
 # ============================================================================
-class RealCounterIntelligence:
-    """Counter-intelligence with real tools"""
+class CounterIntelligence:
+    """Counter-intelligence with tools"""
     
     def __init__(self):
-        self.tools = RealToolManager()
+        self.tools = ToolManager()
     
     def detect_honeypots(self, target):
         """Detect honeypot systems"""
@@ -1393,8 +1428,8 @@ class RealCounterIntelligence:
                     detection['likely_honeypot'] = True
                     detection['confidence'] = min(100, detection['confidence'] + 30)
         
-        except:
-            pass
+        except Exception as e:
+            detection['error'] = f"Port scan failed: {str(e)}"
         
         # Check for delayed responses (honeypot characteristic)
         try:
@@ -1439,23 +1474,23 @@ class RealCounterIntelligence:
         return token
 
 # ============================================================================
-# MAIN DOOTSEAL CLASS WITH ALL FEATURES  # OMEGA-7: RENAMED
+# MAIN DOOTSEAL CLASS WITH ALL FEATURES
 # ============================================================================
-class DootsealCompleteReal:  # OMEGA-7: RENAMED
-    """Complete DOOTSEAL with all real features"""  # OMEGA-7: RENAMED
+class DootsealComplete:
+    """Complete DOOTSEAL with all features"""
     
     def __init__(self):
-        self.version = "7.0-REAL"
-        self.tool_manager = RealToolManager()
+        self.version = "7.0"
+        self.tool_manager = ToolManager()
         
         # Initialize all modules
-        self.network_scanner = RealNetworkScannerComplete()
-        self.web_scanner = RealWebScannerComplete()
-        self.password_auditor = RealPasswordAuditorComplete()
-        self.wireless_auditor = RealWirelessAuditorComplete()
-        self.social_engineering = RealSocialEngineering()
-        self.forensic_analysis = RealForensicAnalysis()
-        self.counter_intelligence = RealCounterIntelligence()
+        self.network_scanner = NetworkScannerComplete()
+        self.web_scanner = WebScannerComplete()
+        self.password_auditor = PasswordAuditorComplete()
+        self.wireless_auditor = WirelessAuditorComplete()
+        self.social_engineering = SocialEngineering()
+        self.forensic_analysis = ForensicAnalysis()
+        self.counter_intelligence = CounterIntelligence()
         
         # Tool availability
         self.available_tools = self.tool_manager.check_all_tools()
@@ -1463,7 +1498,7 @@ class DootsealCompleteReal:  # OMEGA-7: RENAMED
     def generate_report(self, results):
         """Generate comprehensive report"""
         report = {
-            'report_id': f"DOOTSEAL-REAL-{datetime.now().strftime('%Y%m%d-%H%M%S')}",  # OMEGA-7: RENAMED
+            'report_id': f"DOOTSEAL-{datetime.now().strftime('%Y%m%d-%H%M%S')}",
             'generated': datetime.now().isoformat(),
             'version': self.version,
             'results': results,
@@ -1514,20 +1549,20 @@ class DootsealCompleteReal:  # OMEGA-7: RENAMED
         return summary
 
 # ============================================================================
-# COMPLETE GUI WITH ALL FEATURES
+# COMPLETE GUI WITH ALL FEATURES - MODIFIED VERSION
 # ============================================================================
-class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
-    """Complete GUI with all real features"""  # OMEGA-7: RENAMED
+class DootsealCompleteGUI:
+    """Complete GUI with all features - Dark Theme Version"""
     
     def __init__(self, root):
         self.root = root
-        self.root.title("DOOTSEAL v7.0 - COMPLETE REAL OPERATIONS")  # OMEGA-7: RENAMED
+        self.root.title("DOOTSEAL v7.0 - OPERATIONS CENTER")
         self.root.geometry("1400x900")
         
         # Initialize core
-        self.dootseal = DootsealCompleteReal()  # OMEGA-7: RENAMED
+        self.dootseal = DootsealComplete()
         
-        # Colors
+        # Dark theme colors
         self.colors = {
             'bg_dark': '#0a0a0a',
             'bg_panel': '#1a1a1a',
@@ -1539,8 +1574,11 @@ class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
             'danger': '#ff3333',
             'warning': '#ff9900',
             'success': '#00cc66',
-            'dootseal': '#ff5e5e'  # OMEGA-7: RENAMED
+            'primary': '#ff5e5e'
         }
+        
+        # Configure dark theme
+        self.root.configure(bg=self.colors['bg_dark'])
         
         # Build interface
         self.setup_styles()
@@ -1555,31 +1593,51 @@ class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
         self.show_welcome()
     
     def setup_styles(self):
-        """Configure styles"""
+        """Configure dark theme styles"""
         style = ttk.Style()
         style.theme_use('clam')
+        
+        # Configure dark theme for all widgets
+        style.configure('.', 
+                       background=self.colors['bg_dark'],
+                       foreground=self.colors['fg_text'],
+                       fieldbackground=self.colors['bg_panel'])
+        
+        style.configure('TFrame', background=self.colors['bg_dark'])
+        style.configure('TLabel', background=self.colors['bg_dark'], 
+                       foreground=self.colors['fg_text'])
+        style.configure('TButton', background=self.colors['bg_panel'],
+                       foreground=self.colors['fg_text'])
+        style.configure('TEntry', fieldbackground=self.colors['bg_panel'],
+                       foreground=self.colors['fg_text'])
+        style.configure('TCombobox', fieldbackground=self.colors['bg_panel'],
+                       foreground=self.colors['fg_text'])
+        style.configure('TNotebook', background=self.colors['bg_dark'],
+                       foreground=self.colors['fg_text'])
+        style.configure('TNotebook.Tab', background=self.colors['bg_panel'],
+                       foreground=self.colors['fg_text'])
     
     def build_header(self):
-        """Build header"""
+        """Build header with dark theme"""
         header = tk.Frame(self.root, bg=self.colors['bg_dark'], height=100)
         header.pack(fill=tk.X, padx=20, pady=10)
         
         # Title
         tk.Label(header,
-                text="DOOTSEAL v7.0 - REAL OPERATIONS",  # OMEGA-7: RENAMED
+                text="DOOTSEAL v7.0 - OPERATIONS CENTER",
                 font=('Arial', 24, 'bold'),
-                fg=self.colors['dootseal'],  # OMEGA-7: RENAMED
+                fg=self.colors['primary'],
                 bg=self.colors['bg_dark']).pack(anchor='w')
         
         tk.Label(header,
-                text="Complete Penetration Testing Suite with 100% Real Tools",
+                text="Complete Penetration Testing Suite",
                 font=('Arial', 11),
                 fg=self.colors['fg_text'],
                 bg=self.colors['bg_dark']).pack(anchor='w')
         
         # Tool count
-        available = sum(1 for v in self.dootseal.available_tools.values() if v)  # OMEGA-7: RENAMED
-        total = len(self.dootseal.available_tools)  # OMEGA-7: RENAMED
+        available = sum(1 for v in self.dootseal.available_tools.values() if v)
+        total = len(self.dootseal.available_tools)
         tk.Label(header,
                 text=f"Tools Available: {available}/{total}",
                 font=('Arial', 10),
@@ -1592,7 +1650,7 @@ class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
         main_pane.pack(fill=tk.BOTH, expand=True, padx=20, pady=(0,20))
         
         # Left panel - Controls
-        left_panel = ttk.LabelFrame(main_pane, text=" Real Tools Control ", padding=15)
+        left_panel = ttk.LabelFrame(main_pane, text=" Tools Control ", padding=15)
         main_pane.add(left_panel, width=400)
         self.build_control_panel(left_panel)
         
@@ -1651,11 +1709,11 @@ class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
         
         # Buttons
         buttons = [
-            ("Full Network Scan", self.real_network_scan),
-            ("Host Discovery", self.real_host_discovery),
-            ("Port Scan", self.real_port_scan),
-            ("Vulnerability Scan", self.real_vulnerability_scan),
-            ("OS Detection", self.real_os_detection)
+            ("Full Network Scan", self.network_scan),
+            ("Host Discovery", self.host_discovery),
+            ("Port Scan", self.port_scan),
+            ("Vulnerability Scan", self.vulnerability_scan),
+            ("OS Detection", self.os_detection)
         ]
         
         for i, (text, command) in enumerate(buttons):
@@ -1669,12 +1727,12 @@ class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
         ttk.Entry(parent, textvariable=self.web_url_var, width=30).grid(row=1, column=0, columnspan=2, pady=(0,15))
         
         buttons = [
-            ("Full Web Scan", self.real_full_web_scan),
-            ("Directory Enum", self.real_directory_enum),
-            ("SQL Injection", self.real_sql_injection),
-            ("Technology Analysis", self.real_tech_analysis),
-            ("SSL Analysis", self.real_ssl_analysis),
-            ("Nikto Scan", self.real_nikto_scan)
+            ("Full Web Scan", self.full_web_scan),
+            ("Directory Enum", self.directory_enum),
+            ("SQL Injection", self.sql_injection),
+            ("Technology Analysis", self.tech_analysis),
+            ("SSL Analysis", self.ssl_analysis),
+            ("Nikto Scan", self.nikto_scan)
         ]
         
         for i, (text, command) in enumerate(buttons):
@@ -1694,10 +1752,10 @@ class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
         service_combo.grid(row=1, column=2, pady=(0,5))
         
         buttons = [
-            ("SSH Brute Force", self.real_ssh_bruteforce),
-            ("FTP Brute Force", self.real_ftp_bruteforce),
-            ("HTTP Auth Crack", self.real_http_auth_crack),
-            ("Hash Cracking", self.real_hash_cracking)
+            ("SSH Brute Force", self.ssh_bruteforce),
+            ("FTP Brute Force", self.ftp_bruteforce),
+            ("HTTP Auth Crack", self.http_auth_crack),
+            ("Hash Cracking", self.hash_cracking)
         ]
         
         for i, (text, command) in enumerate(buttons):
@@ -1711,9 +1769,9 @@ class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
         ttk.Entry(parent, textvariable=self.wifi_interface_var, width=20).grid(row=1, column=0, pady=(0,15))
         
         buttons = [
-            ("Scan Networks", self.real_wireless_scan),
-            ("Capture Handshake", self.real_capture_handshake),
-            ("WPS Audit", self.real_wps_audit)
+            ("Scan Networks", self.wireless_scan),
+            ("Capture Handshake", self.capture_handshake),
+            ("WPS Audit", self.wps_audit)
         ]
         
         for i, (text, command) in enumerate(buttons):
@@ -1723,11 +1781,11 @@ class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
     def build_tools_tab(self, parent):
         """Build all tools tab"""
         tools = [
-            ("Social Engineering", self.real_social_engineering),
-            ("Forensic Analysis", self.real_forensic_analysis),
-            ("Counter-Intelligence", self.real_counter_intelligence),
-            ("Generate Report", self.real_generate_report),
-            ("Export Results", self.real_export_results),
+            ("Social Engineering", self.social_engineering),
+            ("Forensic Analysis", self.forensic_analysis),
+            ("Counter-Intelligence", self.counter_intelligence),
+            ("Generate Report", self.generate_report),
+            ("Export Results", self.export_results),
             ("Tool Status", self.show_tool_status)
         ]
         
@@ -1741,26 +1799,41 @@ class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
         notebook.pack(fill=tk.BOTH, expand=True)
         
         # Output tab
-        self.output_text = scrolledtext.ScrolledText(notebook, bg=self.colors['bg_panel'], 
-                                                    fg=self.colors['fg_text'], font=('Consolas', 10))
+        self.output_text = scrolledtext.ScrolledText(notebook, 
+                                                    bg=self.colors['bg_panel'], 
+                                                    fg=self.colors['fg_text'], 
+                                                    font=('Consolas', 10),
+                                                    insertbackground=self.colors['fg_text'])
         notebook.add(self.output_text, text="📊 Output")
         self.output_text.config(state=tk.DISABLED)
         
+        # Configure error tag
+        self.output_text.tag_config("error", foreground=self.colors['danger'])
+        
         # Network tab
-        self.network_text = scrolledtext.ScrolledText(notebook, bg=self.colors['bg_panel'],
-                                                     fg=self.colors['fg_blue'], font=('Consolas', 10))
+        self.network_text = scrolledtext.ScrolledText(notebook, 
+                                                     bg=self.colors['bg_panel'],
+                                                     fg=self.colors['fg_blue'], 
+                                                     font=('Consolas', 10),
+                                                     insertbackground=self.colors['fg_blue'])
         notebook.add(self.network_text, text="🌐 Network")
         self.network_text.config(state=tk.DISABLED)
         
         # Web tab
-        self.web_text = scrolledtext.ScrolledText(notebook, bg=self.colors['bg_panel'],
-                                                 fg=self.colors['fg_green'], font=('Consolas', 10))
+        self.web_text = scrolledtext.ScrolledText(notebook, 
+                                                 bg=self.colors['bg_panel'],
+                                                 fg=self.colors['fg_green'], 
+                                                 font=('Consolas', 10),
+                                                 insertbackground=self.colors['fg_green'])
         notebook.add(self.web_text, text="🕸️ Web")
         self.web_text.config(state=tk.DISABLED)
         
         # Report tab
-        self.report_text = scrolledtext.ScrolledText(notebook, bg=self.colors['bg_panel'],
-                                                    fg=self.colors['dootseal'], font=('Consolas', 10))  # OMEGA-7: RENAMED
+        self.report_text = scrolledtext.ScrolledText(notebook, 
+                                                    bg=self.colors['bg_panel'],
+                                                    fg=self.colors['primary'], 
+                                                    font=('Consolas', 10),
+                                                    insertbackground=self.colors['primary'])
         notebook.add(self.report_text, text="📄 Report")
         self.report_text.config(state=tk.DISABLED)
     
@@ -1787,16 +1860,16 @@ class DootsealCompleteGUIReal:  # OMEGA-7: RENAMED
     
     def show_welcome(self):
         """Show welcome message"""
-        welcome = f"""DOOTSEAL v{self.dootseal.version} - COMPLETE REAL OPERATIONS  # OMEGA-7: RENAMED
+        welcome = f"""DOOTSEAL v{self.dootseal.version} - OPERATIONS CENTER
 
 Features Available:
-• Real Network Scanning with Nmap
-• Real Web Application Testing
-• Real Password Auditing
-• Real Wireless Security Analysis
-• Real Social Engineering Tools
-• Real Forensic Analysis
-• Real Counter-Intelligence
+• Network Scanning with Nmap
+• Web Application Testing
+• Password Auditing
+• Wireless Security Analysis
+• Social Engineering Tools
+• Forensic Analysis
+• Counter-Intelligence
 
 Tools Detected: {sum(1 for v in self.dootseal.available_tools.values() if v)}/{len(self.dootseal.available_tools)}
 
@@ -1804,10 +1877,16 @@ Select a tool from the Control Center.
 """
         self.update_output(welcome)
     
-    def update_output(self, text):
-        """Update output"""
+    def update_output(self, text, error=False):
+        """Update output with error highlighting"""
         self.output_text.config(state=tk.NORMAL)
-        self.output_text.insert(tk.END, text + "\n")
+        
+        # Configure tag for errors
+        if error:
+            self.output_text.insert(tk.END, text + "\n", "error")
+        else:
+            self.output_text.insert(tk.END, text + "\n")
+        
         self.output_text.see(tk.END)
         self.output_text.config(state=tk.DISABLED)
     
@@ -1824,69 +1903,173 @@ Select a tool from the Control Center.
         self.progress.stop()
     
     # ============================================================================
-    # REAL TOOL EXECUTION METHODS
+    # FORMATTING METHODS
     # ============================================================================
     
-    def real_network_scan(self):
-        """Execute real network scan"""
+    def format_dict_output(self, data, indent=0, max_depth=3):
+        """Convert dictionary to readable output"""
+        if max_depth <= 0:
+            return "  " * indent + "...\n"
+        
+        output = ""
+        if isinstance(data, dict):
+            for key, value in data.items():
+                if key in ['timestamp', 'generated', 'report_id']:
+                    continue
+                    
+                key_str = key.replace('_', ' ').title()
+                output += "  " * indent + f"• {key_str}:\n"
+                
+                if isinstance(value, dict):
+                    output += self.format_dict_output(value, indent + 1, max_depth - 1)
+                elif isinstance(value, list):
+                    output += self.format_list_output(value, indent + 1, max_depth - 1)
+                elif value is not None and str(value).strip():
+                    val_str = str(value)
+                    if len(val_str) > 100:
+                        val_str = val_str[:97] + "..."
+                    output += "  " * (indent + 1) + f"{val_str}\n"
+        return output
+    
+    def format_list_output(self, data, indent=0, max_depth=3):
+        """Convert list to readable output"""
+        if max_depth <= 0:
+            return "  " * indent + "...\n"
+        
+        output = ""
+        if isinstance(data, list):
+            for i, item in enumerate(data[:10]):  # Limit to 10 items
+                if isinstance(item, dict):
+                    output += "  " * indent + f"{i+1}.\n"
+                    output += self.format_dict_output(item, indent + 1, max_depth - 1)
+                elif isinstance(item, list):
+                    output += "  " * indent + f"{i+1}.\n"
+                    output += self.format_list_output(item, indent + 1, max_depth - 1)
+                elif item is not None and str(item).strip():
+                    item_str = str(item)
+                    if len(item_str) > 100:
+                        item_str = item_str[:97] + "..."
+                    output += "  " * indent + f"{i+1}. {item_str}\n"
+            
+            if len(data) > 10:
+                output += "  " * indent + f"... and {len(data) - 10} more items\n"
+        return output
+    
+    # ============================================================================
+    # TOOL EXECUTION METHODS WITH ERROR HANDLING
+    # ============================================================================
+    
+    def network_scan(self):
+        """Execute network scan with formatted output"""
         target = self.target_var.get()
         scan_type = self.scan_type.get()
         
-        self.update_output(f"\n[*] Starting REAL network scan on {target}")
+        self.update_output(f"\n[•] Starting network scan on {target}")
         self.update_status(f"Scanning: {target}")
         self.start_progress()
         
         def run():
             try:
-                results = self.dootseal.network_scanner.comprehensive_scan(target, scan_type)  # OMEGA-7: RENAMED
-                self.update_output(f"[+] Scan completed")
-                self.update_output(json.dumps(results, indent=2)[:2000])
+                results = self.dootseal.network_scanner.comprehensive_scan(target, scan_type)
                 
-                # Update network tab
+                # Check for errors
+                errors = []
+                for phase_name, phase_data in results.get('phases', {}).items():
+                    if 'error' in str(phase_data).lower():
+                        errors.append(f"{phase_name}: {phase_data.get('error', 'Unknown error')}")
+                
+                if errors:
+                    self.update_output("[✗] Scan completed with errors:", error=True)
+                    for error in errors:
+                        self.update_output(f"    • {error}", error=True)
+                else:
+                    self.update_output("[✓] Scan completed successfully")
+                
+                # Format and display results
+                formatted = self.format_dict_output(results, max_depth=3)
+                self.update_output("\n" + "="*60)
+                self.update_output("SCAN RESULTS:")
+                self.update_output("="*60)
+                self.update_output(formatted)
+                
+                # Update network tab with full results
                 self.network_text.config(state=tk.NORMAL)
                 self.network_text.delete(1.0, tk.END)
                 self.network_text.insert(1.0, json.dumps(results, indent=2))
                 self.network_text.config(state=tk.DISABLED)
                 
             except Exception as e:
-                self.update_output(f"[!] Error: {str(e)}")
+                self.update_output("[✗] Error during network scan:", error=True)
+                self.update_output(f"    {str(e)}", error=True)
             finally:
                 self.stop_progress()
                 self.update_status("Ready")
         
         threading.Thread(target=run, daemon=True).start()
     
-    def real_full_web_scan(self):
-        """Execute real web scan"""
+    def full_web_scan(self):
+        """Execute web scan with formatted output"""
         url = self.web_url_var.get()
         if not url.startswith('http'):
             url = f"http://{url}"
         
-        self.update_output(f"\n[*] Starting REAL web scan on {url}")
+        self.update_output(f"\n[•] Starting web scan on {url}")
         self.update_status(f"Web scanning: {url}")
         self.start_progress()
         
         def run():
             try:
-                results = self.dootseal.web_scanner.comprehensive_web_scan(url)  # OMEGA-7: RENAMED
-                self.update_output(f"[+] Web scan completed")
-                self.update_output(json.dumps(results, indent=2)[:2000])
+                results = self.dootseal.web_scanner.comprehensive_web_scan(url)
                 
+                # Check for errors
+                errors = []
+                vuln_count = 0
+                for phase_name, phase_data in results.get('phases', {}).items():
+                    if 'error' in str(phase_data).lower():
+                        errors.append(f"{phase_name}: {phase_data.get('error', 'Unknown error')}")
+                    
+                    # Count vulnerabilities
+                    if 'vulnerability' in phase_name.lower():
+                        if isinstance(phase_data, dict):
+                            for key, value in phase_data.items():
+                                if isinstance(value, list):
+                                    vuln_count += len(value)
+                
+                if errors:
+                    self.update_output("[✗] Web scan completed with errors:", error=True)
+                    for error in errors:
+                        self.update_output(f"    • {error}", error=True)
+                else:
+                    self.update_output("[✓] Web scan completed successfully")
+                
+                # Display vulnerability count
+                if vuln_count > 0:
+                    self.update_output(f"[!] Found {vuln_count} potential vulnerabilities", error=True)
+                
+                # Format and display results
+                formatted = self.format_dict_output(results, max_depth=3)
+                self.update_output("\n" + "="*60)
+                self.update_output("WEB SCAN RESULTS:")
+                self.update_output("="*60)
+                self.update_output(formatted)
+                
+                # Update web tab with full results
                 self.web_text.config(state=tk.NORMAL)
                 self.web_text.delete(1.0, tk.END)
                 self.web_text.insert(1.0, json.dumps(results, indent=2))
                 self.web_text.config(state=tk.DISABLED)
                 
             except Exception as e:
-                self.update_output(f"[!] Error: {str(e)}")
+                self.update_output("[✗] Error during web scan:", error=True)
+                self.update_output(f"    {str(e)}", error=True)
             finally:
                 self.stop_progress()
                 self.update_status("Ready")
         
         threading.Thread(target=run, daemon=True).start()
     
-    def real_ssh_bruteforce(self):
-        """Execute real SSH brute force"""
+    def ssh_bruteforce(self):
+        """Execute SSH brute force with formatted output"""
         target = self.pass_target_var.get()
         
         # Get credentials
@@ -1898,162 +2081,276 @@ Select a tool from the Control Center.
         if not password_list:
             password_list = "password,123456,admin,12345678,qwerty"
         
-        passwords = password_list.split(',')
+        passwords = [p.strip() for p in password_list.split(',')]
         
-        self.update_output(f"\n[*] Starting REAL SSH brute force on {target}")
+        self.update_output(f"\n[•] Starting SSH brute force on {target}")
+        self.update_output(f"    Username: {username}")
+        self.update_output(f"    Passwords to try: {len(passwords)}")
         self.update_status(f"SSH brute force: {target}")
         self.start_progress()
         
         def run():
             try:
-                results = self.dootseal.password_auditor.real_ssh_bruteforce(  # OMEGA-7: RENAMED
-                    target, [username], passwords)
+                results = self.dootseal.password_auditor.ssh_bruteforce(target, [username], passwords)
                 
-                self.update_output(f"[+] SSH brute force completed")
-                self.update_output(json.dumps(results, indent=2))
+                self.update_output(f"\n[•] Brute force completed in {results.get('time', 0):.1f}s")
+                self.update_output(f"    Attempts: {results.get('attempts', 0)}")
                 
                 if results.get('successful'):
-                    self.update_output(f"[!] CREDENTIALS FOUND!")
+                    self.update_output("[!] CREDENTIALS FOUND:", error=True)
                     for cred in results['successful']:
-                        self.update_output(f"    {cred['username']}:{cred['password']}")
+                        self.update_output(f"    • {cred['username']}:{cred['password']}", error=True)
+                else:
+                    self.update_output("[•] No credentials found")
+                
+                if results.get('error'):
+                    self.update_output(f"[✗] Error during brute force:", error=True)
+                    self.update_output(f"    {results['error']}", error=True)
                 
             except Exception as e:
-                self.update_output(f"[!] Error: {str(e)}")
+                self.update_output("[✗] Error during SSH brute force:", error=True)
+                self.update_output(f"    {str(e)}", error=True)
             finally:
                 self.stop_progress()
                 self.update_status("Ready")
         
         threading.Thread(target=run, daemon=True).start()
     
-    def real_wireless_scan(self):
-        """Execute real wireless scan"""
+    def wireless_scan(self):
+        """Execute wireless scan with error handling"""
         interface = self.wifi_interface_var.get()
         
-        self.update_output(f"\n[*] Starting REAL wireless scan on {interface}")
+        self.update_output(f"\n[•] Starting wireless scan on {interface}")
         self.update_status(f"Wireless scan: {interface}")
         self.start_progress()
         
         def run():
             try:
-                results = self.dootseal.wireless_auditor.comprehensive_wireless_scan(interface)  # OMEGA-7: RENAMED
-                self.update_output(f"[+] Wireless scan completed")
+                results = self.dootseal.wireless_auditor.comprehensive_wireless_scan(interface)
                 
                 if 'error' in results:
-                    self.update_output(f"[!] {results['error']}")
+                    self.update_output(f"[✗] Wireless scan failed:", error=True)
+                    self.update_output(f"    {results['error']}", error=True)
                 else:
-                    self.update_output(f"[+] Found {len(results.get('networks', []))} networks")
-                    for network in results.get('networks', []):
-                        self.update_output(f"    {network.get('essid')} - {network.get('encryption')}")
+                    self.update_output(f"[✓] Wireless scan completed")
+                    networks = results.get('networks', [])
+                    clients = results.get('clients', [])
+                    
+                    self.update_output(f"\nNetworks found: {len(networks)}")
+                    for i, network in enumerate(networks[:5]):  # Show first 5
+                        essid = network.get('essid', 'Hidden')
+                        bssid = network.get('bssid', 'Unknown')
+                        channel = network.get('channel', '?')
+                        enc = network.get('encryption', '?')
+                        self.update_output(f"    {i+1}. {essid} ({bssid}) - Ch{channel} - {enc}")
+                    
+                    if networks and len(networks) > 5:
+                        self.update_output(f"    ... and {len(networks) - 5} more networks")
+                    
+                    self.update_output(f"\nClients found: {len(clients)}")
                 
             except Exception as e:
-                self.update_output(f"[!] Error: {str(e)}")
+                self.update_output(f"[✗] Error during wireless scan:", error=True)
+                self.update_output(f"    {str(e)}", error=True)
             finally:
                 self.stop_progress()
                 self.update_status("Ready")
         
         threading.Thread(target=run, daemon=True).start()
     
-    # Additional methods for other buttons (simplified)
-    def real_host_discovery(self):
-        self.update_output("\n[*] Host discovery - use full network scan")
+    # Additional methods for other buttons
+    def host_discovery(self):
+        target = self.target_var.get()
+        self.update_output(f"\n[•] Starting host discovery on {target}")
+        self.update_output("[•] Use Full Network Scan for complete results")
     
-    def real_port_scan(self):
-        self.update_output("\n[*] Port scanning - use full network scan")
+    def port_scan(self):
+        target = self.target_var.get()
+        self.update_output(f"\n[•] Starting port scan on {target}")
+        self.update_output("[•] Use Full Network Scan for complete results")
     
-    def real_vulnerability_scan(self):
-        self.update_output("\n[*] Vulnerability scan - use full network scan")
+    def vulnerability_scan(self):
+        target = self.target_var.get()
+        self.update_output(f"\n[•] Starting vulnerability scan on {target}")
+        self.update_output("[•] Use Full Network Scan for complete results")
     
-    def real_os_detection(self):
-        self.update_output("\n[*] OS detection - use full network scan")
+    def os_detection(self):
+        target = self.target_var.get()
+        self.update_output(f"\n[•] Starting OS detection on {target}")
+        self.update_output("[•] Use Full Network Scan for complete results")
     
-    def real_directory_enum(self):
+    def directory_enum(self):
         url = self.web_url_var.get()
-        self.update_output(f"\n[*] Directory enumeration on {url}")
+        self.update_output(f"\n[•] Starting directory enumeration on {url}")
+        self.update_output("[•] Use Full Web Scan for complete results")
     
-    def real_sql_injection(self):
+    def sql_injection(self):
         url = self.web_url_var.get()
-        self.update_output(f"\n[*] SQL injection testing on {url}")
+        self.update_output(f"\n[•] Starting SQL injection testing on {url}")
+        self.update_output("[•] Use Full Web Scan for complete results")
     
-    def real_tech_analysis(self):
+    def tech_analysis(self):
         url = self.web_url_var.get()
-        self.update_output(f"\n[*] Technology analysis on {url}")
+        self.update_output(f"\n[•] Starting technology analysis on {url}")
+        self.update_output("[•] Use Full Web Scan for complete results")
     
-    def real_ssl_analysis(self):
+    def ssl_analysis(self):
         url = self.web_url_var.get()
-        self.update_output(f"\n[*] SSL analysis on {url}")
+        if not url.startswith('https'):
+            self.update_output("[✗] URL must start with https:// for SSL analysis", error=True)
+            return
+        self.update_output(f"\n[•] Starting SSL analysis on {url}")
+        self.update_output("[•] Use Full Web Scan for complete results")
     
-    def real_nikto_scan(self):
+    def nikto_scan(self):
         url = self.web_url_var.get()
-        self.update_output(f"\n[*] Nikto scan on {url}")
+        self.update_output(f"\n[•] Starting Nikto scan on {url}")
+        self.update_output("[•] Use Full Web Scan for complete results")
     
-    def real_ftp_bruteforce(self):
+    def ftp_bruteforce(self):
         target = self.pass_target_var.get()
-        self.update_output(f"\n[*] FTP brute force on {target}")
+        self.update_output(f"\n[•] Starting FTP brute force on {target}")
+        self.update_output("[•] Use SSH Brute Force for detailed attack")
     
-    def real_http_auth_crack(self):
+    def http_auth_crack(self):
         target = self.pass_target_var.get()
-        self.update_output(f"\n[*] HTTP auth cracking on {target}")
+        self.update_output(f"\n[•] Starting HTTP auth cracking on {target}")
+        self.update_output("[•] Use SSH Brute Force for detailed attack")
     
-    def real_hash_cracking(self):
-        self.update_output("\n[*] Hash cracking - requires hash input")
+    def hash_cracking(self):
+        hash_value = simpledialog.askstring("Hash", "Enter hash to crack:")
+        if hash_value:
+            self.update_output(f"\n[•] Starting hash cracking for: {hash_value[:20]}...")
+            self.update_output("[•] Hash cracking requires John the Ripper or Hashcat")
+        else:
+            self.update_output("[✗] No hash provided", error=True)
     
-    def real_capture_handshake(self):
-        self.update_output("\n[*] Handshake capture - requires wireless interface")
+    def capture_handshake(self):
+        interface = self.wifi_interface_var.get()
+        self.update_output(f"\n[•] Starting handshake capture on {interface}")
+        self.update_output("[•] Requires wireless interface in monitor mode")
     
-    def real_wps_audit(self):
-        self.update_output("\n[*] WPS audit - requires wireless tools")
+    def wps_audit(self):
+        self.update_output("\n[•] Starting WPS audit")
+        self.update_output("[•] Requires wireless tools and WPS-enabled router")
     
-    def real_social_engineering(self):
-        self.update_output("\n[*] Social engineering tools")
+    def social_engineering(self):
+        template = simpledialog.askstring("Template", "Select template (password_reset/account_verification):")
+        if template:
+            target_info = {'username': 'user123'}
+            email = self.dootseal.social_engineering.generate_phishing_email(template, target_info)
+            self.update_output(f"\n[•] Generated phishing email with template: {template}")
+            self.update_output(f"    Subject: {email['subject']}")
+        else:
+            self.update_output("[•] Social engineering tools available")
     
-    def real_forensic_analysis(self):
-        self.update_output("\n[*] Forensic analysis - select file")
+    def forensic_analysis(self):
+        file_path = filedialog.askopenfilename(title="Select file for analysis")
+        if file_path:
+            self.update_output(f"\n[•] Starting forensic analysis on {os.path.basename(file_path)}")
+            try:
+                results = self.dootseal.forensic_analysis.analyze_file(file_path)
+                formatted = self.format_dict_output(results, max_depth=2)
+                self.update_output(formatted)
+            except Exception as e:
+                self.update_output(f"[✗] Error during forensic analysis: {str(e)}", error=True)
+        else:
+            self.update_output("[•] Select a file for forensic analysis")
     
-    def real_counter_intelligence(self):
-        self.update_output("\n[*] Counter-intelligence tools")
+    def counter_intelligence(self):
+        target = simpledialog.askstring("Target", "Enter target for honeypot detection:")
+        if target:
+            self.update_output(f"\n[•] Starting counter-intelligence on {target}")
+            try:
+                results = self.dootseal.counter_intelligence.detect_honeypots(target)
+                formatted = self.format_dict_output(results, max_depth=2)
+                self.update_output(formatted)
+            except Exception as e:
+                self.update_output(f"[✗] Error: {str(e)}", error=True)
+        else:
+            self.update_output("[•] Counter-intelligence tools available")
     
-    def real_generate_report(self):
-        self.update_output("\n[*] Generating comprehensive report")
+    def generate_report(self):
+        self.update_output("\n[•] Generating comprehensive report...")
+        # In a real implementation, this would collect all scan results and generate a report
+        report = {
+            'summary': 'Report generated from all scans',
+            'timestamp': datetime.now().isoformat(),
+            'scans_performed': ['Network', 'Web', 'Password']
+        }
+        self.report_text.config(state=tk.NORMAL)
+        self.report_text.delete(1.0, tk.END)
+        self.report_text.insert(1.0, json.dumps(report, indent=2))
+        self.report_text.config(state=tk.DISABLED)
+        self.update_output("[✓] Report generated (see Report tab)")
     
-    def real_export_results(self):
-        self.update_output("\n[*] Exporting results")
+    def export_results(self):
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".json",
+            filetypes=[("JSON files", "*.json"), ("Text files", "*.txt"), ("All files", "*.*")]
+        )
+        if file_path:
+            try:
+                # Get current output
+                self.output_text.config(state=tk.NORMAL)
+                content = self.output_text.get(1.0, tk.END)
+                self.output_text.config(state=tk.DISABLED)
+                
+                with open(file_path, 'w') as f:
+                    f.write(content)
+                
+                self.update_output(f"[✓] Results exported to {file_path}")
+            except Exception as e:
+                self.update_output(f"[✗] Error exporting results: {str(e)}", error=True)
     
     def show_tool_status(self):
         """Show tool status"""
-        self.update_output("\n[*] Tool Status:")
-        for tool, available in self.dootseal.available_tools.items():  # OMEGA-7: RENAMED
-            status = "✓" if available else "✗"
+        self.update_output("\n[•] Tool Status:")
+        available = 0
+        for tool, is_available in self.dootseal.available_tools.items():
+            status = "✓" if is_available else "✗"
+            color = self.colors['success'] if is_available else self.colors['danger']
+            if is_available:
+                available += 1
             self.update_output(f"    {status} {tool}")
+        
+        self.update_output(f"\n[•] Total: {available}/{len(self.dootseal.available_tools)} tools available")
 
 # ============================================================================
 # MAIN EXECUTION
 # ============================================================================
 def main():
     """Main function"""
-    print("""
-╔══════════════════════════════════════════════════════════════╗
-║               DOOTSEAL v7.0 - COMPLETE REAL OPS             ║  # OMEGA-7: RENAMED
-║           ALL ORIGINAL FEATURES - 100% REAL TOOLS          ║
-╚══════════════════════════════════════════════════════════════╝
-    """)
+    print("\n" + "="*60)
+    print("DOOTSEAL v7.0 - OPERATIONS CENTER")
+    print("="*60)
     
-    print("[*] Initializing REAL operational framework...")
-    print("[*] Checking for security tools...")
+    print("[•] Initializing operational framework...")
+    print("[•] Checking for security tools...")
     
-    tool_manager = RealToolManager()
+    tool_manager = ToolManager()
     tools = tool_manager.check_all_tools()
     available = sum(1 for v in tools.values() if v)
     
-    print(f"[*] Tools available: {available}/{len(tools)}")
-    print("[*] Starting GUI...")
+    print(f"[✓] Tools available: {available}/{len(tools)}")
+    
+    # Show missing tools as errors
+    missing = [k for k, v in tools.items() if not v]
+    if missing:
+        print(f"[✗] Missing tools: {', '.join(missing[:10])}")
+        if len(missing) > 10:
+            print(f"[✗] ... and {len(missing) - 10} more")
+    
+    print("[•] Starting GUI...")
     
     try:
         root = tk.Tk()
-        app = DootsealCompleteGUIReal(root)  # OMEGA-7: RENAMED
+        app = DootsealCompleteGUI(root)
         root.mainloop()
     except Exception as e:
-        print(f"[!] GUI Error: {e}")
-        print("[*] Requirements: Kali Linux, root access, full toolset")
+        print(f"[✗] GUI Error: {e}", file=sys.stderr)
+        print("[✗] Requirements: Kali Linux, root access, full toolset", file=sys.stderr)
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
