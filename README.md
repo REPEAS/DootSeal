@@ -1,45 +1,59 @@
-DOOTSEAL v7.0 - KALI LINUX NATIVE INSTALLATION GUIDE 🚨 KALI-LINUX ONLY - SYSTEM PACKAGE INSTALLATION
+DOOTSEAL v7.0 🔐
 
-DO NOT USE PIP/VENV - This is a Kali Linux native tool that uses system packages only.
+Complete Penetration Testing Suite by Dootmas
 
-📦 SYSTEM REQUIREMENTS MANDATORY:
+https://img.shields.io/badge/DOOTSEAL-v7.0-red
+https://img.shields.io/badge/Python-3.6%252B-blue
+https://img.shields.io/badge/License-Dootmas%2520Shield-green
+https://img.shields.io/badge/Platform-Linux%2520%257C%2520Kali-lightgrey
 
-    Kali Linux 2023.4+ (x64, Rolling)
+    [!WARNING]
+    AUTHORIZED USE ONLY - Don't be a "Bad Boy". :3
 
-    Root privileges (sudo or direct root)
+📋 Features
 
-    Internet connection for initial setup
+    🌐 Network Scanning - Pure Python port scanning & service detection
 
-    Minimum 4GB RAM, 20GB disk space
+    🕸️ Web Application Testing - Directory enumeration, tech detection, security headers
 
-📈 RECOMMENDED:
+    🔐 Password Auditing - SSH brute force, HTTP basic auth cracking
 
-    Kali Linux 2024.x with full metapackages
+    🔍 Service Detection - Banner grabbing & service fingerprinting
 
-    8GB+ RAM for heavy scanning
+    📊 GUI Interface - Dark theme with real-time results
 
-    SSD for faster database operations
+    💾 Report Generation - Export results to multiple formats
 
-🚨 LEGAL DISCLAIMER (MIT DOES NOT REMOVE RESPONSIBILITY)
+🚀 Quick Installation
 
-⚠️ IMPORTANT: The MIT license grants usage rights but does NOT exempt you from:
-
-    Legal responsibility for unauthorized testing
-
-    Compliance with local and international laws
-
-    Ethical obligations as a security professional
-
-    Required permissions before scanning systems
-
-YOU ARE SOLELY RESPONSIBLE for ensuring you have proper authorization for all testing activities.
-
-🔧 INSTALL
-
-# ONE COMMAND - Clone and run immediately
+Method 1: Git Clone & Run
 bash
 
-git clone https://github.com/YOUR_USERNAME/DOOTSEAL.git && cd DOOTSEAL && python3 DOOTSEAL.py
+# Clone the repository
+git clone https://github.com/dootmas/dootseal.git
+cd dootseal
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run DOOTSEAL
+python3 dootseal.py
+
+Method 2: .deb Package (For Debian/Ubuntu/Kali)
+bash
+
+# Download the latest .deb release
+wget https://github.com/dootmas/dootseal/releases/latest/download/dootseal_7.0_all.deb
+
+# Install with gdebi (recommended - handles dependencies)
+sudo apt install gdebi
+sudo gdebi dootseal_7.0_all.deb
+
+# OR install with dpkg
+sudo dpkg -i dootseal_7.0_all.deb
+sudo apt install -f  # Fix missing dependencies
+
+Thanks for installing If You Did :3   -dootmas
 
 <img width="1364" height="733" alt="Screenshot1" src="https://github.com/user-attachments/assets/39d5d081-2f3a-4b7b-ba74-0c3f1780ceb4" />
 
