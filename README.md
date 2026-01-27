@@ -2,6 +2,8 @@
 
 MAC Scanner and Device Database coming in v8.0!
 
+↑ I addded the database files i will update dootseal to 8.0 then the code will work with the databases ↑
+
 DOOTSEAL v7.0 🔐
 
 Complete Penetration Testing Suite by Dootmas
