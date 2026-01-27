@@ -1,6 +1,7 @@
-![dootseallogo](https://github.com/user-attachments/assets/bd6f2899-210a-4925-ab4e-c6848e1f2f85)
-DOOTSEAL v7.0 🔐
+<img width="397" height="523" alt="dootmaslogo" src="https://github.com/user-attachments/assets/248dfd9f-7613-46e3-81c8-dcf57bcb39ad" />
 
+
+DOOTSEAL v7.0 🔐
 
 Complete Penetration Testing Suite by Dootmas
 
