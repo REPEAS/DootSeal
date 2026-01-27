@@ -53,7 +53,15 @@ sudo gdebi dootseal.deb
 sudo dpkg -i dootseal.deb
 sudo apt install -f  # Fix missing dependencies
 
-Thanks for installing If You Did :3   -dootmas
+Found a bug? 🐛 Please report it! Tell me:
+
+1. What OS you are using.
+
+2. The error message.
+
+3. What device DootSeal missed."
+
+4. email it to dootmasmail@gmail.com
 
 <img width="1364" height="733" alt="Screenshot1" src="https://github.com/user-attachments/assets/39d5d081-2f3a-4b7b-ba74-0c3f1780ceb4" />
 
