@@ -1,0 +1,110 @@
+{
+  "ftp": {
+    "banner_grab": true,
+    "patterns": {
+      "ProFTPD": [
+        "ProFTPD",
+        "220 ProFTPD"
+      ],
+      "vsFTPd": [
+        "vsFTPd",
+        "220 vsFTPd"
+      ]
+    },
+    "ports": [
+      21,
+      2121
+    ],
+    "probe": ""
+  },
+  "http": {
+    "default_ssl": false,
+    "patterns": {
+      "Apache": [
+        "Apache",
+        "apache",
+        "Server: Apache"
+      ],
+      "IIS": [
+        "Microsoft-IIS",
+        "IIS",
+        "Server: Microsoft-IIS"
+      ],
+      "Lighttpd": [
+        "lighttpd",
+        "Server: lighttpd"
+      ],
+      "Nginx": [
+        "nginx",
+        "NGINX",
+        "Server: nginx"
+      ],
+      "Tomcat": [
+        "Apache-Coyote",
+        "Tomcat",
+        "Server: Apache Tomcat"
+      ]
+    },
+    "ports": [
+      80,
+      8080,
+      8000,
+      8888
+    ],
+    "probe": "GET / HTTP/1.1\\r\\nHost: localhost\\r\\nUser-Agent: DOOTSEAL/8.1\\r\\nAccept: */*\\r\\n\\r\\n",
+    "ssl_ports": [
+      443,
+      8443
+    ]
+  },
+  "mysql": {
+    "patterns": {
+      "MariaDB": [
+        "mariadb",
+        "MariaDB"
+      ],
+      "MySQL": [
+        "mysql",
+        "MySQL"
+      ]
+    },
+    "ports": [
+      3306
+    ],
+    "probe": "\\x0a\\x00\\x00\\x01\\x85\\xa6\\x03\\x00\\x00\\x00\\x00\\x01\\x21\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00"
+  },
+  "smtp": {
+    "patterns": {
+      "Exim": [
+        "Exim",
+        "220 .* ESMTP Exim"
+      ],
+      "Postfix": [
+        "Postfix",
+        "220 .* ESMTP Postfix"
+      ]
+    },
+    "ports": [
+      25,
+      587,
+      465
+    ],
+    "probe": "EHLO localhost\\r\\n"
+  },
+  "ssh": {
+    "patterns": {
+      "Dropbear": [
+        "dropbear",
+        "SSH-2.0-dropbear"
+      ],
+      "OpenSSH": [
+        "OpenSSH",
+        "SSH-2.0-OpenSSH"
+      ]
+    },
+    "ports": [
+      22
+    ],
+    "probe": "SSH-2.0-DOOTSEAL_Client\\r\\n"
+  }
+}
