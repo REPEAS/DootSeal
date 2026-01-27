@@ -1,5 +1,6 @@
 <img width="397" height="523" alt="dootmaslogo" src="https://github.com/user-attachments/assets/248dfd9f-7613-46e3-81c8-dcf57bcb39ad" />
 
+MAC Scanner and Device Database coming in v8.0!
 
 DOOTSEAL v7.0 🔐
 
