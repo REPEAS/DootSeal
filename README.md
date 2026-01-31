@@ -1,10 +1,8 @@
 <img width="397" height="523" alt="dootmaslogo" src="https://github.com/user-attachments/assets/248dfd9f-7613-46e3-81c8-dcf57bcb39ad" />
 
-MAC Scanner and Device Database coming in v8.0!
+8.0 is here 
 
-↑ I addded the database files i will update dootseal to 8.0 then the code will work with the databases ↑
-
-DOOTSEAL v7.0 🔐
+DOOTSEAL v8.0 🔐
 
 Complete Penetration Testing Suite by Dootmas
 
